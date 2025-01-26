@@ -1,23 +1,23 @@
 # nasscom-vsd-soc-design-program
 Repository for the workshop "Digital VLSI SoC Design and Planning"
-## Lab Day 1 : Inception of open-source EDA, OpenLane and Sky130 PDK
+## Lab Day 1 : Inception of open-source EDA, OpenLANE and Sky130 PDK
 The objective is to perform the synthesis of the 'picorv32a' design and calculate the resulting flop ratio.
 
 The first 5 steps are the following:
 ```bash
-  # Step 1: Change directory to the OpenLane flow directory within the OpenLane working directory
+  # Step 1: Change directory to the OpenLANE flow directory within the OpenLANE working directory
   $cd Desktop/work/tools/openlane_working_dir/openlane
 
-  # Step 2: Execute the aliased 'docker' command to access the OpenLane bash
+  # Step 2: Execute the aliased 'docker' command to access the bash
   $docker
 
-  # Step 3: Start OpenLane in interactive mode
+  # Step 3: Start OpenLANE in interactive mode
   %./flow.tcl -interactive
 
   # Step 4: Load the required packages
   %package require openlane 0.9
 
-  # Step 5: Prepare the design for synthesis
+  # Step 5: Prepare the 'picorv32a' design for synthesis
   %prep -design picorv32a
 ```
 ![steps1to5](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/950eb4a67a2848ad0721ae1366ef8e7f135faf8c/Screenshot%202025-01-26%20001924.png)
