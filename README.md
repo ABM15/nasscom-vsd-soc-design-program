@@ -43,4 +43,18 @@ Number of cells: 14876
 
 Flop ratio = 1613/14876 = **0.1084 [10.84%]**
 
+## Lab Day 2 : Good floorplan VS bad floorplan and introduction to library cells
 
+The objectives are the following:
+
+1) Run the floorplan utility from OpenLANE to define the floorplan
+2) Review the floorplan output files and calculate the die area
+3) Review the floorplan in Magic
+4) Congestion-aware placement using RePlAcE Run congestion-aware placement from OpenLANE to perform the placement
+5) Review the placement in Magic
+
+#### 1  Run the floorplan utility from OpenLANE to define the floorplan
+
+vgvjh
+
+ 
