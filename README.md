@@ -29,7 +29,7 @@ At this point the synthesis can be started:
 ```
 ![step6](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/950eb4a67a2848ad0721ae1366ef8e7f135faf8c/Screenshot%202025-01-26%20002117.png)
 
-After successful completion of the synthesis we navigate to the reports folder of this specific run and inspect the Yosys stats report file:
+After successful completion of the synthesis we navigate to the reports folder of this specific run (25-01_23-16) and inspect the Yosys stats report file:
 
 ![step7](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/a9d8208600c40e73eb06927a184dc04b06d12e45/Screenshot%202025-01-26%20011032.png)
 
