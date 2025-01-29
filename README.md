@@ -47,15 +47,15 @@ Flop ratio = 1613/14876 = **0.1084 [10.84%]**
 
 The objectives are the following:
 
-1) Run the floorplan utility from OpenLANE
+1) Define the floorplan using the floorplan utility from OpenLANE
 2) Review the floorplan output files and calculate the die area
 3) Review the floorplan in Magic
-4) Congestion-aware placement using RePlAcE Run congestion-aware placement from OpenLANE to perform the placement
+4) Perform congestion-aware placement using RePlAcE 
 5) Review the placement in Magic
 
-#### 1  Run the floorplan utility from OpenLANE
+#### 1  Define the floorplan using the floorplan utility from OpenLANE
 
-We run the floorplan utility from OpenLANE to define the floorplan:
+We run the floorplan utility from OpenLANE to define the floorplan of the picorv32a design:
 
 ```bash
   #Define the floorplan
@@ -81,10 +81,44 @@ Die area = 660.685x671.405 = **443587.212425 square microns**
 
 #### 3 Review the floorplan in Magic
 
+In the same location as in the previous point, we run the following command to execute Magic, providing the paths to the .tech, .lef and .def files:
 
+```bash 
+  $magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
 
+![floorplanmagicrun](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20190140.png)
 
+![magicfloorplanview](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-27%20004417.png)
 
+Once Magic opens, hitting S allows to select and inspect cells at different zoom levels:
 
+![magicfloorplandetails](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-27%20004739.png)
 
+#### 4 Perform congestion-aware placement using RePlAcE
+
+We run the placement utility from OpenLANE with the following command:
+
+```bash
+  #Perform congestion-aware placement
+  %run_placement
+```
+
+![placementrun](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-28%20233317.png)
+
+#### 5 Review the placement in Magic
+
+To review the placement we navigate to the results folder of this specific run (28-01_20-56) and execute the command to launch Magic, 
+
+```bash 
+  $magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+
+![magicplacementlaunch](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20000730.png)
+
+We observe how the tool has performed the placement in the previous step. The standard cells have been legally placed and we can observe also the power and GND lines.
+
+![magicplacementview](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20001808.png)
+
+![magicplacementviewzoomed](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20001412.png)
  
