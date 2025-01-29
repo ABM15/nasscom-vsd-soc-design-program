@@ -47,14 +47,44 @@ Flop ratio = 1613/14876 = **0.1084 [10.84%]**
 
 The objectives are the following:
 
-1) Run the floorplan utility from OpenLANE to define the floorplan
+1) Run the floorplan utility from OpenLANE
 2) Review the floorplan output files and calculate the die area
 3) Review the floorplan in Magic
 4) Congestion-aware placement using RePlAcE Run congestion-aware placement from OpenLANE to perform the placement
 5) Review the placement in Magic
 
-#### 1  Run the floorplan utility from OpenLANE to define the floorplan
+#### 1  Run the floorplan utility from OpenLANE
 
-vgvjh
+We run the floorplan utility from OpenLANE to define the floorplan:
+
+```bash
+  #Define the floorplan
+  %run_floorplan
+```
+![runfloorplan>](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-26%20132729.png)
+
+#### 2  Review the floorplan output files and calculate the die area
+
+After successful completion of the command we navigate to the results folder of this specific run (26-01_11-54) and inspect the file 'picorv32a.floorplan.def'.
+
+![floorplanresult1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-26%20132856.png)
+
+![floorplanresult2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-26%20132916.png)
+
+The width and height of the die are given (in distance units) by the 'DIEAREA' line. The number of distance units per micron is given by the 'UNITS DISTANCE MICRONS'. The current setting is 1000 distance units per micron.
+
+Die width: 660685 d.u. ---> 660.685 microns
+
+Die height: 671405 d.u. ---> 671.405 microns
+
+Die area = 660.685x671.405 = **443587.212425 square microns** 
+
+#### 3 Review the floorplan in Magic
+
+
+
+
+
+
 
  
