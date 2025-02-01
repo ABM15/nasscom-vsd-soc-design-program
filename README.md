@@ -6,10 +6,10 @@ The objective is to perform the synthesis of the 'picorv32a' design and calculat
 The first 5 steps are the following:
 ```bash
   # Step 1: Change directory to the OpenLANE flow directory within the OpenLANE working directory
-  $cd Desktop/work/tools/openlane_working_dir/openlane
+  $ cd Desktop/work/tools/openlane_working_dir/openlane
 
   # Step 2: Execute the aliased 'docker' command to access the bash
-  $docker
+  $ docker
 
   # Step 3: Start OpenLANE in interactive mode
   %./flow.tcl -interactive
@@ -84,7 +84,7 @@ Die area = 660.685x671.405 = **443587.212425 square microns**
 In the same location as in the previous point, we run the following command to execute Magic, providing the paths to the .tech, .lef and .def files:
 
 ```bash 
-  $magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+  $ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
 ```
 
 ![floorplanmagicrun](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20190140.png)
@@ -111,7 +111,7 @@ We run the placement utility from OpenLANE with the following command:
 To review the placement we navigate to the results folder of this specific run (28-01_20-56) and execute the command to launch Magic, 
 
 ```bash 
-  $magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+  $ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
 ```
 
 ![magicplacementlaunch](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20000730.png)
@@ -129,9 +129,9 @@ The objectives of this day are the following:
 1) Observe different placement modes with Magic
 2) Clone CMOS inverter standard cell design from repository
 3) Explore the inverter layout in Magic
-4) Extraction of SPICE files for inverter with Magic
-5) Adjustment of SPICE file for inverter simulation
-6) Inverter characterization with ngspice
+4) Extraction of SPICE files for CMOS inverter with Magic
+5) Adjustment of SPICE file for CMOS inverter simulation
+6) CMOS inverter characterization with ngspice
 7) Sky130 Tech File Labs
 
 #### 1 Observe different placement modes with Magic
@@ -149,17 +149,52 @@ The necessary steps and commands are the following:
 
 ```bash
   #Step 1: Change directory to the OpenLANE flow directory within the OpenLANE working directory
-  $cd Desktop/work/tools/openlane_working_dir/openlane
+  $ cd Desktop/work/tools/openlane_working_dir/openlane
 
   #Step 2: Clone the repository with the inverter cell design
-  $git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+  $ git clone https://github.com/nickson-jose/vsdstdcelldesign.git
 
   #Step 3: Check that the cloned files are in the intended destination
-  $ls -ltr
+  $ ls -ltr
 ```
 
 We observe a new folder 'vsdstdcelldesign' with the 'openlane' folder
 
-![openlanevststdcelldesignfolder](
+![openlanevststdcelldesignfolder](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20093159.png)
+
+#### 3 Explore the inverter layout in Magic
+
+To run Magic using a simpler command than the previous day, the Sky130 technology file needs to be copied into the cloned folder from the repository:
+
+```bash
+  #Navigate to the folder containing the Sky130 technology file from the 'openlane' folder
+  $ cd ../../pdks/sky130/A/libs.tech/magic/
+
+  #Copy the technology file into the cloned repository folder
+  $ cp sky130A.tech /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign/
+```
+
+![copytechfile](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20094253.png)
+
+We navigate to the cloned repository folder, check that the technology file is successfully copied there and run Magic
+
+```bash
+  #Navigate to the cloned repository folder
+  $ cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign/
+
+  #Explore the folder
+  $ls -ltr
+
+  #Run Magic
+  $ magic -T sky130A.tech sky_inv.mag &
+```
+![magicrun](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20095606.png)
+
+We observe the standard CMOS inverter cell design and check the connectivit
+
+  
+
+
+
 
 
