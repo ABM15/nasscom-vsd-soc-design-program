@@ -242,6 +242,44 @@ The initial file needs to be edited to perform the following changes:
 
 #### 6 CMOS inverter characterization with ngspice
 
+To characterize the CMOS inverter we need to find out the rise time of the output signal and the rise propagation time.
+
+We start by running the simulation with the following command:
+
+```bash
+  $ngspice sky130_inv.spice
+```
+
+From a running ngspice session we observe the time plot of the input and output signals with the following command:
+
+```bash
+  ngspice 1 -> plt y vs time a
+```
+
+![simulationrun](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20001455.png)
+
+Zooming in the time plot, it can be seen that the output signal (red trace) has ~100mV spikes at each pulse transition. 
+
+![uglyspikes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20001527.png)
+
+These spikes can be halved by changing the value of the output capacitor from 0.27fF to 2fF and re-running the simulation:
+
+![lessuglyspikes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20001937.png)
+
+**RISE TIME**
+
+The rise time is defined as the difference between the instants where the output signal reaches the 80% of VPWR value (for VPWR=3.3V this is 2.64V) and the one it reaches 20% of VPWR value (0.66V).
+
+After zooming in the plot and clicking on these points, the exact information is displayed in the simulation console:
+
+![twentypercent](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20003348.png)
+
+![eightypercent](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20003356.png)
+
+The rise time is then 22.24522 ns - 21.1888 ns  =  
+
+
+
 
 
 
