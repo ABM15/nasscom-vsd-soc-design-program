@@ -215,7 +215,7 @@ While in the cloned standard cell design folder, the following commands needs to
   %ext2spice cthresh 0 rthresh 0
 ```
 
-![runextractall]([https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125153.png](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125442.png))
+![extractall](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125153.png)
 
 Between the commands we check in another terminal that the file 'sky130_inv.ext' has been created:
 
