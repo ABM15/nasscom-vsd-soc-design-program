@@ -138,5 +138,28 @@ The objectives of this day are the following:
 
 The placement mode can be controlled through the value of FP_IO_MODE. We set it to 2, run floorplan again and observe it with Magic.
 
+![runfloorplanagain](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20235950.png)
+![viewfloorplanmagicagain](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20010513.png)
+
+The IO pins have been placed around the bottom left-hand corner.
+
+#### 2 Clone CMOS inverter standard cell design from repository
+
+The necessary steps and commands are the following:
+
+```bash
+  #Step 1: Change directory to the OpenLANE flow directory within the OpenLANE working directory
+  $cd Desktop/work/tools/openlane_working_dir/openlane
+
+  #Step 2: Clone the repository with the inverter cell design
+  $git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+
+  #Step 3: Check that the cloned files are in the intended destination
+  $ls -ltr
+```
+
+We observe a new folder 'vsdstdcelldesign' with the 'openlane' folder
+
+![openlanevststdcelldesignfolder](
 
 
