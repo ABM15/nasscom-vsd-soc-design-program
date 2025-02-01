@@ -122,3 +122,21 @@ We observe how the tool has performed the placement in the previous step. The st
 
 ![magicplacementviewzoomed](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-29%20001412.png)
  
+## Lab Day 3 : Design library cell using Magic Layout and ngspice characterization
+
+The objectives of this day are the following:
+
+1) Observe different placement modes with Magic
+2) Clone CMOS inverter standard cell design from repository
+3) Explore the inverter layout in Magic
+4) Extraction of SPICE files for inverter with Magic
+5) Adjustment of SPICE file for inverter simulation
+6) Inverter characterization with ngspice
+7) Sky130 Tech File Labs
+
+#### 1 Observe different placement modes with Magic
+
+The placement mode can be controlled through the value of FP_IO_MODE. We set it to 2, run floorplan again and observe it with Magic.
+
+
+
