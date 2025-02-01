@@ -129,8 +129,8 @@ The objectives of this day are the following:
 1) Observe different placement modes with Magic
 2) Clone CMOS inverter standard cell design from repository
 3) Explore the inverter layout in Magic
-4) Extraction of SPICE files for CMOS inverter with Magic
-5) Adjustment of SPICE file for CMOS inverter simulation
+4) Extraction of CMOS inverter SPICE files from Magic
+5) Adjustment of CMOS inverter SPICE files for simulation
 6) CMOS inverter characterization with ngspice
 7) Sky130 Tech File Labs
 
@@ -205,6 +205,43 @@ Connectivity of the source of the p-channel MOSFET to VPWR:
 Connectivity of the source of the n-channel MOSFET to VGND:
 
 ![sourceNMOSVGND](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20123900.png)
+
+#### 4 Extraction of CMOS inverter SPICE files from Magic
+
+While in the cloned standard cell design folder, the following commands needs to be run from tkcon:
+```bash
+  %extract all
+
+  %ext2spice cthresh 0 rthresh 0
+```
+
+![runextractall]([https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125153.png](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125442.png))
+
+Between the commands we check in another terminal that the file 'sky130_inv.ext' has been created:
+
+![extfilecheck](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125552.png)
+
+After the ext2spice command we check that the file 'sky130_inv.spice' has been created:
+
+![spicefilecheck](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125622.png)
+
+#### 5 Adjustment of CMOS inverter SPICE file for simulation
+
+We inspect the initially created SPICE file:
+
+![initialSPICE](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20125653.png)
+
+The initial file needs to be edited to perform the following changes:
+
+- Correct the scale to 0.01u instead of 10m
+- Include the library models for the pshort and nshort MOSFETs
+- Define the pulse exciting the gate of the transistors
+- Specify the transient analysis
+
+![finalSPICE](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20000718.png)
+
+#### 6 CMOS inverter characterization with ngspice
+
 
 
 
