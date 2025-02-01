@@ -190,7 +190,26 @@ We navigate to the cloned repository folder, check that the technology file is s
 ```
 ![magicrun](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20095606.png)
 
-We observe the standard CMOS inverter cell design and check the connectivit
+We observe the standard CMOS inverter cell design and check the connectivity of the relevant design nodes.
+
+![stdinvertercell](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20095702.png)
+
+Connectivity of the drains of both p-channel and n-channel MOSFETs to the output Y:
+
+![drainsconnectivity](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20123844.png)
+
+Connectivity of the source of the p-channel MOSFET to VPWR:
+
+![sourcePMOSVPWR](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20123819.png)
+
+Connectivity of the source of the n-channel MOSFET to VGND:
+
+![sourceNMOSVGND](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-01-30%20123900.png)
+
+
+
+
+
 
   
 
