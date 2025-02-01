@@ -242,7 +242,7 @@ The initial file needs to be edited to perform the following changes:
 
 #### 6 CMOS inverter characterization with ngspice
 
-To characterize the CMOS inverter we need to find out the rise time of the output signal and the rise propagation time.
+To characterize the CMOS inverter we need to find out the rise time and the rise propagation delay.
 
 We start by running the simulation with the following command:
 
@@ -268,7 +268,7 @@ These spikes can be halved by changing the value of the output capacitor from 0.
 
 **RISE TIME**
 
-The rise time is defined as the difference between the instants where the output signal reaches the 80% of VPWR value (for VPWR=3.3V this is 2.64V) and the one it reaches 20% of VPWR value (0.66V).
+The rise time is defined as the difference between the instant where the output signal reaches the 80% of VPWR value (for VPWR=3.3V this is 2.64V) and the instant it reached 20% of VPWR value (0.66V).
 
 After zooming in the plot and clicking on these points, the exact information is displayed in the simulation console:
 
@@ -276,7 +276,22 @@ After zooming in the plot and clicking on these points, the exact information is
 
 ![eightypercent](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20003356.png)
 
-The rise time is then 22.24522 ns - 21.1888 ns  =  
+The rise time is then 2.24522 ns - 2.18188 ns  =  0.06334 ns = **63.34 ps**
+
+**RISE PROPAGATION DELAY**
+
+The rise propagation delay is defined as the difference between the time instant the output signal reaches 50% of VPWR and the time instant the input signal reached the same value. For VPWR = 3.3V it is 1.65V.
+
+By zoooming in the plot and clicking on these points, the exact information is displayed in the simulation console:
+
+![zoom165](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20005034.png)
+![info165](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20005113.png)
+
+The rise propagation delay is then 2.21076 ns - 2.15 ns = 0.06076 ns = **60.76 ps**
+
+
+
+
 
 
 
