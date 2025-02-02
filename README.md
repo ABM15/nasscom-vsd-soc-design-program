@@ -364,7 +364,11 @@ We reload the file in Magic without restarting it and run a DRC check. Zooming i
 
 #### Implement poly resistor spacing to diff and tap
 
-The rule for spacing between poly.resistor and poly has been fixed but there is no rule for spacing between poly.resistor and diffusion or tab. 
+The rule for spacing between poly.resistor and poly has been fixed but the rule for spacing between poly.resistor and diffusion or tap seems to be for N only. 
+
+![onlyndrc](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20124914.png)
+
+
 
 
 
