@@ -368,6 +368,18 @@ The rule for spacing between poly.resistor and poly has been fixed but the rule 
 
 ![onlyndrc](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20124914.png)
 
+This can be fixed by replacing '*.nsd' with 'alldiff' in the sky130A.tech file, loading it like in the previous step and re-running the DRC check:
+
+![correctalldiff](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20130455.png)
+
+The DRC warning appears now at the bottom of the leftmost poly resistor.
+
+![correctalldiffgraph](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20130626.png)
+
+
+
+
+
 
 
 
