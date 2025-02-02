@@ -390,9 +390,22 @@ After reloading the tech file and re-running the DRC check we now see the DRC vi
 
 #### Implement nwell.4 rule
 
-Loading the 'nwell.mag' file in Magic and running a DRC check, we observe an nwell without any metal-contacted tap that should be triggering a DRC vioaltion on rule nmwell.4 (All n-wells will contain metal-contacted tap). Yet there is no DRC warning displayed.
+Loading the 'nwell.mag' file in Magic and running a DRC check, we observe an nwell without any metal-contacted tap that should be triggering a DRC violation on rule nmwell.4 (All n-wells will contain metal-contacted tap). Yet there is no DRC warning displayed.
 
 ![nonwell4](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20162028.png)
+
+This rule will be implemented on the basis of a geometric construct: from the nwell, all tapped nwells are subtracted. If the result of this operation is bigger than 0 there will be an error. Two temporary layers (nwell_tapped and nwell_untapped) are defined to perform this operation for the DRC but will not produce any GDS output.
+
+![templayersnwell4](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20165433.png)
+![rulenmwell4](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20170608.png)
+
+Saving the tech file, reloading it in Magic and checking the DRC we now see the DRC warning for rule nwell.4 :
+
+![drcwarningnwell4](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20170900.png)
+
+We also check that the DRC warning for nwell.4 disappears when we add a metal-contacted tap to another nwell:
+
+![drcwarningnwell4nomore](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20171122.png)
 
 
 
