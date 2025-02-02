@@ -364,7 +364,7 @@ We reload the file in Magic without restarting it and run a DRC check. Zooming i
 
 #### Implement poly resistor spacing to diff and tap
 
-
+The rule for spacing between poly.resistor and poly has been fixed but there is no rule for spacing between poly.resistor and diffusion or tab. 
 
 
 
