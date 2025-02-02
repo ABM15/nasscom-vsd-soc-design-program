@@ -289,6 +289,53 @@ By zoooming in the plot and clicking on these points, the exact information is d
 
 The rise propagation delay is then 2.21076 ns - 2.15 ns = 0.06076 ns = **60.76 ps**
 
+#### 7 Sky130 Tech File Labs
+
+This section starts by downloading the file 'drc_tests.tgz' and decompressing it in the home directory. The commands are the following:
+
+```bash
+  #Download the file
+  $ wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+
+  #Decompress the .tgz file
+  $tar xfz drc_tests.tgz
+
+  #Check that folder drc_tests has been created and explore it
+  $ ls -ltr
+  $ cd drc_tests/
+  $ ls -ltr
+```
+![img1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20012105.png)
+
+The next step is to observe the .magicrc file and start Magic to observe an example file: met3.mag 
+```bash
+  #Check the .magicrc file
+  $ gvim .magicrc
+
+  #Start Magic
+  $ magic -d XR &
+```
+![rcfile](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20012250.png)
+
+In Magic we open 'met3.mag'
+
+![magicstartmet3o](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20012726.png)
+
+Clicking on 'Drc-->DRC Update' a few DRC violations will show. To examine them it is possible to click on 'DRC find next error' or to graphically enclose a cell with the cursor and entering the following command in tkcon:
+
+```bash
+  %drc why
+```
+
+![magicstartmet3](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-01%20155227.png)
+
+The displayed DRC violation involves met3.2. In the skywater documentation, in the 'Periphery Rules' we can see that the met 3.2 rules imposes a minimum spacing from metal3 to metal3 of 0.3 microns, which is violated in this case.
+
+We will fix similar DRC errors in the four following examples
+
+#### Incorrectly set poly.9 rule
+
+
 
 
 
