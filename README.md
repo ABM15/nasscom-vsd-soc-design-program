@@ -388,6 +388,13 @@ After reloading the tech file and re-running the DRC check we now see the DRC vi
 
 ![correctDRCwarningli7](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20141318.png)
 
+#### Implement nwell.4 rule
+
+Loading the 'nwell.mag' file in Magic and running a DRC check, we observe an nwell without any metal-contacted tap that should be triggering a DRC vioaltion on rule nmwell.4 (All n-wells will contain metal-contacted tap). Yet there is no DRC warning displayed.
+
+![nonwell4](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20162028.png)
+
+
 
 
 
