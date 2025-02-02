@@ -376,7 +376,17 @@ The DRC warning appears now at the bottom of the leftmost poly resistor.
 
 ![correctalldiffgraph](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20130626.png)
 
+Another example (to find on our own) is the DRC violation on rule li.7 in 'li.mag'. The width of the local interconnect resistor is 0.21 um, smaller than the required 0.29 um, yet there is no DRC warning.
 
+![li7viol](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20140914.png)
+
+This can be corrected by splitting line 4942 of the tech file and specifying rli in a separate line:
+
+![correctionli7](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20141307.png)
+
+After reloading the tech file and re-running the DRC check we now see the DRC violation warning for rule li.7:
+
+![correctDRCwarningli7](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20141318.png)
 
 
 
