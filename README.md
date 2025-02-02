@@ -342,7 +342,7 @@ The file 'poly.mag' is open and explored with Magic in the same way as the previ
 
 The distance between the vertical npolyres cell and the horizontal poly cell is 0.21 microns. This should be triggering a DRC violation on rule poly.9 (poly resistor spacing to poly or spacing (no overlap) to diff/tap > 0.48 microns) but it is not being displayed.
 
-The file 'sky130A.tech' is explored and all occurrences of 'poly.9' are searched for. There are two defined rules: one on the spacing between poly.resistor and N-tap (line 4815) and another one on the spacing between poly.resistor and diffusion. There is no rule defined on the spacing between poly.resistor and poly. We add specific lines from poly.resistor to allpolynonres, an alias that covers diffusion too and save the file.
+The file 'sky130A.tech' is explored and all occurrences of 'poly.9' are searched for. There are two defined rules: one on the spacing between poly.resistor and N-tap (line 4815) and another one on the spacing between poly.resistor and diffusion. There is no rule defined on the spacing between poly.resistor and poly. We add specific lines from poly.resistor to allpolynonres and save the file.
 
 ![norule](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20013427.png)
 ![polyruleadded1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20110135.png)
@@ -361,6 +361,8 @@ We reload the file in Magic without restarting it and run a DRC check. Zooming i
   %drc why
 ```
 ![drccheckpoly9ok](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20110502.png)
+
+#### Implement poly resistor spacing to diff and tap
 
 
 
