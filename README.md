@@ -410,6 +410,38 @@ We also check that the DRC warning for nwell.4 disappears when we add a metal-co
 ## Lab Day 4 : Pre-layout timing analysis and the importance of a good clock tree
 
 
+#### 1 Include customised inverter design in openlane flow
+
+Check the tracks info of the customised inverter design, configure Magic grid accordingly and verify the 2 good practices: 1) potrts must be placed at intersections of the vertical and horizontal lines 2) width and height of the P&R region (inner white contour) must be a multiple of grid cell width and height respectively.
+
+Save the customised layout .mag and extract lef
+
+Copy lef file to design src directory
+
+Edit config.tcl of the design to include the lef of the customised design in the flow, as well as the libraries in the design src folder
+
+Run openlane synthesis and verify it has considered the new lef. Check slack.Not met (-711, -23.89)
+
+Change SYNTH_SIZING to 1 and try again. No Improvement.
+
+Change SYNTH_STRATEGY to "DELAY 3" (from previous "AREA 0") try again. Slack condition is met with (0,0)
+
+Attempt to run floorplan doesn't work. We try an alternative sequence of 3 commands and proceed to placement.
+
+We observe the placement with Magic and expand the cell to observe the connections in a more detailed way.
+
+#### 2 Timing analysis using ideal clocks with openSTA
+
+-------- Since slack has been removed, to illustrate the timing troubleshooting process we will depart from the initial synthesis with (-711, -23.89)
+
+Now we create pre_sta.conf in openlane directory and my_base.sdc in src directory of the design
+
+We run STA and no improvement is observed.
+
+We limit the maximum fanout number to 4 and try again. No improvement (-23.90)
+
+
+
 
 
 
