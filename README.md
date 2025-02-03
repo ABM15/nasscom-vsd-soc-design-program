@@ -416,7 +416,7 @@ The objectives of the day are the following:
 
 #### 1 Integrate customised inverter cell design in OpenLANE flow
 
-## Previous good practice verification
+#### Previous good practice verification
 
 The first step is to verify the following conditions:
 
@@ -446,7 +446,7 @@ As can be visually checked, the width of the P&R region (internal white contour)
 
 ![condition2yes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20180306.png)
 
-## Saving and inspecting the finalized layout with customised name
+#### Saving and inspecting the finalized layout with customised name
 
 The customised layout is saved in tkcon:
 
@@ -455,7 +455,7 @@ The customised layout is saved in tkcon:
   %save sky130_vsdinv.mag
 ```
 
- ## Generating LEF file from the customised inverter cell layout
+ #### Generating LEF file from the customised inverter cell layout
 
  The lef file for the customised layout is generated from tkcon with the following command:
 
@@ -470,7 +470,7 @@ We inspect the newly created LEF file:
 
 ![leffile](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20181128.png)
 
-## Copying LEF and LIB files of the customised design to design source folder
+#### Copying LEF and LIB files of the customised design to design source folder
 
 The following commands are run to copy and check successful copying of the LEF and LIB files:
 
@@ -485,15 +485,46 @@ We check the successful copying of the files:
 
 ![copiedokleflib](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20182553.png)
 
-## Edit design configuration TCL file to include new LEF and LIB files
+#### Edit design configuration TCL file to include new LEF and LIB files
 
 The 'config.tcl' is edited as follows to include the .lef and .lib files of the customised design:
 
 ![newconfigtcl](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20205430.png)
 
-## Run OpenLANE synthesis with customised inverter cell
+#### Run OpenLANE synthesis with customised inverter cell design
 
-We synt
+We start OpenLANE and prepare the customised design for synthesis with the following commands:
+
+```bash
+  #Change directory to openlane
+  $ cd /Desktop/work/tools/openlane_working_dir/openlane
+  $ docker
+```
+In the bash we execute this command to enter the OpenLANE flow in interactive mode:
+```bash
+ ./flow.tcl -interactive
+```
+In the OpenLANE flow we load the required packages and prepare the design:
+```bash
+  #load packages
+  %package require openlane 0.9
+
+  #Prepare the design
+  %prep -design picorv32a
+
+  #Include newly created lefs to OpenLANE flow
+  %set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+  %add_lefs -src $lefs
+
+  #Run synthesis
+  %run_synthesis
+```
+![synthesiscustom](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20190047.png)
+![synthesiscustom2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20191627.png)
+
+The synthesis is successfully performed although the slack condition is being violated. The present slack is -23.89
+
+
 
 
 
