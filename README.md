@@ -416,9 +416,11 @@ The objectives of the day are the following:
 
 #### 1 Integrate customised inverter cell design in OpenLANE flow
 
+## Previous good practice verification
+
 The first step is to verify the following conditions:
 
-- Condition 1: The ports are placed at intersections of vertical and horizontal trakcs
+- Condition 1: The ports are placed at intersections of vertical and horizontal tracks
 - Condition 2: The width and height of the place and route region (inner white contour) must be a multiple of grid cell width and height respectively.
 
 We open the customised inverter cell layout in Magic with the following commands:
@@ -440,11 +442,61 @@ Zooming in around the ports, it can be observed that the ports are at intersecti
 
 ![cond1yes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20174308.png)
 
-The width of the P&R region (internal white contour) is 4 times the grid cell width, and the P&R height is 6 times, as seen below:
+As can be visually checked, the width of the P&R region (internal white contour) is 3 times the grid cell width, and the P&R region height is 8 times the grid cell height. Condition 2 is verified.
 
 ![condition2yes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20180306.png)
 
-Save the customised layout .mag and extract lef
+## Saving and inspecting the finalized layout with customised name
+
+The customised layout is saved in tkcon:
+
+```bash
+  #Command to save as .mag
+  %save sky130_vsdinv.mag
+```
+
+ ## Generating LEF file from the customised inverter cell layout
+
+ The lef file for the customised layout is generated from tkcon with the following command:
+
+ ```bash
+  #Create lef
+  %lef write
+```
+
+![createlef](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20180855.png)
+
+We inspect the newly created LEF file:
+
+![leffile](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20181128.png)
+
+## Copying LEF and LIB files of the customised design to design source folder
+
+The following commands are run to copy and check successful copying of the LEF and LIB files:
+
+```bash
+  # Copy lef file
+  $ cp sky130_vsdinv.lef /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+
+  # Copy lib files
+  $ cp libs/sky130_fd_sc_hd__* /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+```
+We check the successful copying of the files:
+
+![copiedokleflib](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20182553.png)
+
+## Edit design configuration TCL file to include new LEF and LIB files
+
+The 'config.tcl' is edited as follows to include the .lef and .lib files of the customised design:
+
+![newconfigtcl](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20205430.png)
+
+## Run OpenLANE synthesis with customised inverter cell
+
+We synt
+
+
+
 
 Copy lef file to design src directory
 
