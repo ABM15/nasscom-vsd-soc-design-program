@@ -659,7 +659,7 @@ Reducing the maximum fanout from 6 to 4 has not resulted in any big improvement.
 
 #### Slack improvements through timing ECO
 
-Since the reduction of maximum fanout did not bring great improvements, we examine the elements with the largest slew and delay values and see if they can be replaced. From the latest STA we see three elements with a higher delay than 1:
+Since the reduction of maximum fanout did not bring great improvements, we examine the elements with the largest slew and delay values and see if they can be upsized (at the trade of larger elements). From the latest STA we see three elements with a higher delay than 1: 
 
 ![staslewdelay](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20193930.png)
 
