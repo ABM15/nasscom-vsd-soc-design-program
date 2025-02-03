@@ -623,10 +623,40 @@ The next step is to create two required files for the STA analysis: 'pre_sta.con
 ![prestaconf](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20234522.png)
 ![mybasesdcview](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20234450.png)
 
+We run STA and confirm the same slack results as the synthesis tool for the same design (tns = -711.59, wns = -23.89):
 
-We run STA and no improvement is observed.
+![stafanout](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20192457.png)
+![stasame](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20192218.png)
 
-We limit the maximum fanout number to 4 and try again. No improvement (-23.90)
+A potential cause for delays are the cells with high fanout. We change the parameter SYNTH_MAX_FANOUT from 6 to 4, re-run the synthesis and perform the STA analysis again.
+
+```bash
+  # Prepare the design to overwrite a specific run
+  %prep -design picorv32a -tag 02-02_19-54 -overwrite
+
+  # Include newly added lef to openlane flow
+  %set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+  %add_lefs -src $lefs
+
+  #Set new value for SYNTH_SIZING
+  %set ::env(SYNTH_SIZING) 1
+
+  #Set new value for SYNTH_MAX_FANOUT
+  %set ::env(SYNTH_MAX_FANOUT) 4
+
+  #Display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+  %echo $::env(SYNTH_DRIVING_CELL)
+
+  # Now that the design is prepped and ready, we can run synthesis using following command
+  %run_synthesis
+```
+
+![synthesismaxfanout](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20193544.png)
+
+Reducing the maximum fanout from 6 to 4 has not resulted in any big improvement. We run the STA again, with the same results as the synthesis (tns =-710.69, wns = -23.90)
+
+![stamaxfanout](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20194000.png)
+
 
 We examine the elements with the largest slew and delay values.
 
