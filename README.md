@@ -607,19 +607,22 @@ The next step is to observe the placement with Magic:
 
 ![placementgood](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20220500.png)
 
-Zooming in, we find instances of the customised inverter cell, confirming that the design has been successfully integrated into the OpenLANE flow. The connexion of the cells can be better inspected running the 'expand' command in tkcon.
+Zooming in, we find instances of the customised inverter cell, 'sky130_vsdinv', confirming the successful integration of the design into the OpenLANE flow. The connexion of the cells can be better inspected running the 'expand' command in tkcon.
 
 ![placementzoomin1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20220934.png)
 ![placementzoomin2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20221454.png)
 
+#### 2 Timing analysis using ideal clocks with OpenSTA
 
+Since the slack has been reduced to 0 in the previous section, to illustrate the timing troubleshooting process with OpenSTA we will depart from the initial synthesis of the previous section (with SYNTH_SIZING = 0 and SYNTH_STRATEGY = 'AREA 0'), where tns = -711.59, wns = -23.89. The synthesis is re-run to return to the initial design:
 
+![backtobeginningsynth](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20000334.png)
 
-#### 2 Timing analysis using ideal clocks with openSTA
+The next step is to create two required files for the STA analysis: 'pre_sta.conf' in the openlane directory and 'my_base.sdc' in the design source folder.
 
--------- Since slack has been removed, to illustrate the timing troubleshooting process we will depart from the initial synthesis with (-711, -23.89)
+![prestaconf](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20234522.png)
+![mybasesdcview](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20234450.png)
 
-Now we create pre_sta.conf in openlane directory and my_base.sdc in src directory of the design
 
 We run STA and no improvement is observed.
 
