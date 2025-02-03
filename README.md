@@ -440,7 +440,7 @@ We run STA and no improvement is observed.
 
 We limit the maximum fanout number to 4 and try again. No improvement (-23.90)
 
-
+We examine the elements with the largest slew and delay values.
 
 
 
