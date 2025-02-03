@@ -840,6 +840,58 @@ Now we can run the CTS:
 ![cts1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20234620.png)
 ![cts2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20234714.png)
 
+#### 4 Timing analysis using real clocks with openSTA
+
+After performing the CTS, the next step is to perform a timing analysis with integrated OpenSTA in OpenROAD
+
+```bash
+# Command to run OpenROAD tool
+%openroad
+
+# Reading lef file
+%read_lef /openLANE_flow/designs/picorv32a/runs/24-03_10-03/tmp/merged.lef
+
+# Reading def file
+%read_def /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/cts/picorv32a.cts.def
+
+# Creating an OpenROAD database to work with
+%write_db pico_cts.db
+
+# Loading the created database in OpenROAD
+%read_db pico_cts.db
+
+# Read netlist post CTS
+%read_verilog /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/synthesis/picorv32a.synthesis_cts.v
+
+# Read library for design
+%read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+%link_design picorv32a
+
+# Read in the custom sdc we created
+%read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+%set_propagated_clock [all_clocks]
+
+# Check syntax of 'report_checks' command
+%help report_checks
+
+# Generating custom timing report
+%report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+%exit
+```
+
+The command run and timing report generated can be observed below:
+
+![realclk1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20003617.png)
+![realclk2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20003708.png)
+![realclk3](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20003754.png)
+
+
 
 
 
