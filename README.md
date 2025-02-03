@@ -567,23 +567,25 @@ The new synthesis with the previous modifications allows to reduce the slack to 
 
 #### Floorplan and placement of customised inverter design
 
+Since the slack is reduced we proceed to run the floorplan of the customised design:
 
+```bash
+  %run_floorplan
+```
 
+![floorplanerror](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212856.png)
 
+The `run_floorplan` command is failing without apparent reason. Based on the information from `Desktop/work/tools/openlane_working_dir/openlane/scripts/tcl_commands/floorplan.tcl` and the `Floorplan Commands` section in `Desktop/work/tools/openlane_working_dir/openlane/docs/source/OpenLANE_commands.md`, it is possible to use an alternative sequence of the three following commands:
 
+```tcl
+%init_floorplan
+%place_io
+%tap_decap_or
+```
 
-
-Copy lef file to design src directory
-
-Edit config.tcl of the design to include the lef of the customised design in the flow, as well as the libraries in the design src folder
-
-Run openlane synthesis and verify it has considered the new lef. Check slack.Not met (-711, -23.89)
-
-Change SYNTH_SIZING to 1 and try again. No Improvement.
-
-Change SYNTH_STRATEGY to "DELAY 3" (from previous "AREA 0") try again. Slack condition is met with (0,0)
-
-Attempt to run floorplan doesn't work. We try an alternative sequence of 3 commands and proceed to placement.
+![initfloorplan](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212929.png)
+![placeio](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212943.png)
+![tapdecapor](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20213004.png)
 
 We observe the placement with Magic and expand the cell to observe the connections in a more detailed way.
 
