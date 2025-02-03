@@ -587,7 +587,33 @@ The `run_floorplan` command is failing without apparent reason. Based on the inf
 ![placeio](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212943.png)
 ![tapdecapor](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20213004.png)
 
-We observe the placement with Magic and expand the cell to observe the connections in a more detailed way.
+Now we proceed to the placement:
+```bash
+  %run_placement
+```
+The command executes successfully:
+
+![runplacement](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20213054.png)
+
+The next step is to observe the placement with Magic:
+
+```bash
+  # Change directory to folder containing placement def
+  $ cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-02_19-54/results/placement/
+
+  # Load the placement def in Magic
+  $ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+
+![placementgood](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20220500.png)
+
+Zooming in, we find instances of the customised inverter cell, confirming that the design has been successfully integrated into the OpenLANE flow. The connexion of the cells can be better inspected running the 'expand' command in tkcon.
+
+![placementzoomin1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20220934.png)
+![placementzoomin2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20221454.png)
+
+
+
 
 #### 2 Timing analysis using ideal clocks with openSTA
 
