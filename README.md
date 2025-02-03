@@ -409,10 +409,40 @@ We also check that the DRC warning for nwell.4 disappears when we add a metal-co
 
 ## Lab Day 4 : Pre-layout timing analysis and the importance of a good clock tree
 
+The objectives of the day are the following:
 
-#### 1 Include customised inverter design in openlane flow
+1) Integrate customised inverter cell design in OpenLANE flow
+2) Timing analysis using ideal clocks with openSTA
 
-Check the tracks info of the customised inverter design, configure Magic grid accordingly and verify the 2 good practices: 1) potrts must be placed at intersections of the vertical and horizontal lines 2) width and height of the P&R region (inner white contour) must be a multiple of grid cell width and height respectively.
+#### 1 Integrate customised inverter cell design in OpenLANE flow
+
+The first step is to verify the following conditions:
+
+- Condition 1: The ports are placed at intersections of vertical and horizontal trakcs
+- Condition 2: The width and height of the place and route region (inner white contour) must be a multiple of grid cell width and height respectively.
+
+We open the customised inverter cell layout in Magic with the following commands:
+
+```bash
+  #Change directory to vsdstdcelldesign
+  $ cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+
+  #Open custom inverter layout in Magic
+  $ -T sky130A.tech sky130_inv.mag &
+```
+
+We inspect the tracks.info file of sky130_fd_sc_hd. The new grid in Magic should be defined acording to the spacing and the origin in each dimension of the li1 layer. 
+
+![tracksinfo](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20174023.png)
+![newgrid](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20174202.png)
+
+Zooming in around the ports, it can be observed that the ports are at intersections of horizontal and vertical tracks. Condition 1 is verified.
+
+![cond1yes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20174308.png)
+
+The width of the P&R region (internal white contour) is 4 times the grid cell width, and the P&R height is 6 times, as seen below:
+
+![condition2yes](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20180306.png)
 
 Save the customised layout .mag and extract lef
 
