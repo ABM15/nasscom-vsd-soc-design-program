@@ -522,7 +522,51 @@ In the OpenLANE flow we load the required packages and prepare the design:
 ![synthesiscustom](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20190047.png)
 ![synthesiscustom2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20191627.png)
 
-The synthesis is successfully performed although the slack condition is being violated. The present slack is -23.89
+The synthesis is successfully performed, with a resulting chip area of 147712.9184. However, the slack condition is not being met with tns = -711.59 and wns = -23.89
+
+#### Modify design synthesis parameters to reduce slack
+
+To improve the timing situation we will change the 'SYNTH_SIZING' parameter from 0 to 1, the 'SYNTH_STRATEGY' parameter from 'AREA 0' to 'DELAY 3' and re-launch the synthesis.
+
+```bash
+  # Prepare the design indicating that there will be an update of variables of the specific run
+  %prep -design picorv32a -tag 02-02_19-54 -overwrite
+
+  # Include newly created lefs to OpenLANE flow
+  %set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+  %add_lefs -src $lefs
+
+  # Display current value of variable SYNTH_STRATEGY
+  %echo $::env(SYNTH_STRATEGY)
+
+  # Set new value for SYNTH_STRATEGY
+  %set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+  # Display current value of variable SYNTH_BUFFERING
+  %echo $::env(SYNTH_BUFFERING)
+
+  # Display current value of variable SYNTH_SIZING
+  %echo $::env(SYNTH_SIZING)
+
+  # Set new value for SYNTH_SIZING
+  %set ::env(SYNTH_SIZING) 1
+
+  # Display current value of variable SYNTH_DRIVING_CELL 
+  %echo $::env(SYNTH_DRIVING_CELL)
+
+  # Run synthesis
+  %run_synthesis
+```
+
+![changeparameterssynth](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212403.png)
+
+The new synthesis with the previous modifications allows to reduce the slack to 0 for both tns and wns, at the expense of a larger area: 1817300.544
+
+![newsynthres1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212522.png)
+![newsynthres2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-02%20212537.png)
+
+#### Floorplan and placement of customised inverter design
+
 
 
 
