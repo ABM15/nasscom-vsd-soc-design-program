@@ -795,6 +795,55 @@ We check that the new netlist is present and inspect the file to confirm cell _1
 
 #### 3 Run Clock Tree Synthesis using TritonCTS
 
+For this section it makes sense to proceed with the design that had achieved 0 slack. In OpenLANE, we return to the design as it was at the end of section 1 up to the placement step completed.
+
+```bash
+  # Preparation of the design overwriting the specific run
+  %prep -design picorv32a -tag 02-02_19-54 -overwrite
+
+  # Include newly added lef to openlane flow merged.lef
+  %set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+  %add_lefs -src $lefs
+
+  # Set new value for SYNTH_STRATEGY
+  %set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+  # Set new value for SYNTH_SIZING
+  %set ::env(SYNTH_SIZING) 1
+
+  # Run synthesis
+  run_synthesis
+
+  # Alternative sequence to "run_floorplan" command
+  %init_floorplan
+  %place_io
+  %tap_decap_or
+
+  # Run placement
+  %run_placement
+
+  # In the event of an error
+  %unset ::env(LIB_CTS)
+```
+![prep](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20233341.png)
+![synth1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20233506.png)
+![synth2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20233543.png)
+![floorplan1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20233614.png)
+![floorplan2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20233759.png)
+![placement](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20233831.png)
+
+Now we can run the CTS:
+
+```bash
+%run_cts
+```
+![cts1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20234620.png)
+![cts2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20234714.png)
+
+
+
+
+
 
 
 
