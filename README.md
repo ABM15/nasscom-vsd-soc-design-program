@@ -413,6 +413,8 @@ The objectives of the day are the following:
 
 1) Integrate customised inverter cell design in OpenLANE flow
 2) Timing analysis using ideal clocks with openSTA
+3) Run Clock Tree Synthesis using TritonCTS
+4) Timing analysis using real clocks with openSTA
 
 #### 1 Integrate customised inverter cell design in OpenLANE flow
 
@@ -663,7 +665,7 @@ Since the reduction of maximum fanout did not bring great improvements, we exami
 
 ![staslewdelay](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20193930.png)
 
-The first of them is cell _14510_ ('sky130_fd_sc_hd__or3_2') which is driving 4 fanouts. We inspect and replace it with its equivalent of driving strength 4 'sky130_fd_sc_hd__or3_4') using the following commands:
+The first of them is cell \_14510_ ('sky130_fd_sc_hd__or3_2') which is driving 4 fanouts. We inspect and replace it with its equivalent of driving strength 4 'sky130_fd_sc_hd__or3_4') using the following commands:
 
 ```bash
   # Reports all the connections to a net
@@ -684,7 +686,7 @@ The first of them is cell _14510_ ('sky130_fd_sc_hd__or3_2') which is driving 4 
 
 The slack reduces to wns = -23.50
 
-The following element is cell _14514_, or gate of drive strength 2, which is driving 4 fanouts
+The following element is cell \_14514_, or gate of drive strength 2, which is driving 4 fanouts
 
 ![or3v2v4fanouts](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20211603.png)
 
@@ -706,7 +708,7 @@ It will inspected and replaced with an OR gate of drive strength 4 using the fol
 
 The slack further reduces to wns = -23.1405
 
-The following element is cell _14481_ (OR gate of drive strength 2) which has the longest delay
+The following element is cell \_14481_ (OR gate of drive strength 2) which has the longest delay
 
 ![or4v2vlongestdelay](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20213008.png)
 
@@ -728,12 +730,70 @@ It will be inspected and replaced with an OR gate of drive strength 4 using the 
 
 The slack further reduces to wns = -23.1362
 
+There is one more OR gate of drive strength 2 with the largest delay: \_14506_
 
+![or4v2longestdelay2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20214428.png)
 
+It will be inspected and replaced with an OR gate of drive strength 4 using the following commands:
 
+```bash
+  # Reports all the connections to a net
+  %report_net -connections _11668_
 
+  # Replacecell
+  %replace_cell _14506_ sky130_fd_sc_hd__or4_4
 
+  # Generate custom timing report
+  %report_checks -fields {net cap slew input_pins} -digits 4
+```
 
+![fourthreplacement](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20215647.png)
+
+The resulting slack is -22.6173. The ECO process was started at an initial slack of -23.90, so 1.2827 ns of slack have been reduced.
+
+We run the following command to verify cell \_14506_ has been replaced by 'sky130_fd_sc_hd__or4_4'.
+
+```bash
+  # Generate custom timing report
+  %report_checks -from _29043_ -to _30440_ -through _14506_
+```
+![gatereplaced](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20225720.png)
+
+#### Update netlist
+
+The netlist would need to be updated after the modifications in this section. The first step is to keep a copy of the present one.
+
+```bash
+# Change directory to synthesis results directory
+$ cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-02_19-54/results/synthesis/
+
+# List contents of the directory
+$ls
+
+# Copy and rename the netlist
+$cp picorv32a.synthesis.v picorv32a.synthesis_old.v
+
+# List contents of the directory
+ls
+```
+
+![copyoldgenerated](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20230258.png)
+
+The copy has been created. Now we overwrite the netlist with the results of this section:
+
+```bash
+# Overwrite current synthesis netlist
+$ write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-02_19-54/results/synthesis/picorv32a.synthesis.v
+
+# Exit from OpenSTA since timing analysis is done
+exit
+```
+We check that the new netlist is present and inspect the file to confirm cell _14506_ has been replaced with sky130_fd_sc_hd__or4_4.
+
+![phot](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20231523.png)
+![veriloginspect](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20232157.png)
+
+#### 3 Run Clock Tree Synthesis using TritonCTS
 
 
 
