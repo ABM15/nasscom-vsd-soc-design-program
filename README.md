@@ -659,9 +659,77 @@ Reducing the maximum fanout from 6 to 4 has not resulted in any big improvement.
 
 #### Slack improvements through timing ECO
 
-Since the reduction of maximum fanout did not bring great improvements, we examine the elements with the largest slew and delay values and see if they can be upsized (at the trade of larger elements). From the latest STA we see three elements with a higher delay than 1: 
+Since the reduction of maximum fanout did not bring great improvements, we examine the elements with the largest slew and delay values and see if they can be upsized (at the trade-off of using larger elements). From the latest STA we see three elements with a higher delay than 1: 
 
 ![staslewdelay](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20193930.png)
+
+The first of them is cell _14510_ ('sky130_fd_sc_hd__or3_2') which is driving 4 fanouts. We inspect and replace it with its equivalent of driving strength 4 'sky130_fd_sc_hd__or3_4') using the following commands:
+
+```bash
+  # Reports all the connections to a net
+  %report_net -connections _11672_
+
+  # Checking command syntax
+  %help replace_cell
+
+  # Replace cell
+  %replace_cell _14510_ sky130_fd_sc_hd__or3_4
+
+  # Generate custom timing report
+  %report_checks -fields {net cap slew input_pins} -digits 4
+```
+
+![firstreeplacement](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20211303.png)
+![firstreplacement2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20211209.png)
+
+The slack reduces to wns = -23.50
+
+The following element is cell _14514_, or gate of drive strength 2, which is driving 4 fanouts
+
+![or3v2v4fanouts](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20211603.png)
+
+It will inspected and replaced with an OR gate of drive strength 4 using the following commands:
+
+```bash
+  # Reports all the connections to a net
+  %report_net -connections _11675_
+
+  # Replace cell
+  %replace_cell _14514_ sky130_fd_sc_hd__or3_4
+
+  # Generate custom timing report
+  %report_checks -fields {net cap slew input_pins} -digits 4
+```
+
+![secondreplacemnent](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20212227.png)
+![secondreplacement2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20212441.png)
+
+The slack further reduces to wns = -23.1405
+
+The following element is cell _14481_ (OR gate of drive strength 2) which has the longest delay
+
+![or4v2vlongestdelay](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20213008.png)
+
+It will be inspected and replaced with an OR gate of drive strength 4 using the following commands:
+
+```bash
+  # Reports all the connections to a net
+  %report_net -connections _11643_
+
+  # Replace cell
+  %replace_cell _14481_ sky130_fd_sc_hd__or4_4
+
+  # Generate custom timing report
+  %report_checks -fields {net cap slew input_pins} -digits 4
+```
+
+![thirdreplacementv1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20213416.png)
+![thirdreplacementv2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-03%20213434.png)
+
+The slack further reduces to wns = -23.1362
+
+
+
 
 
 
