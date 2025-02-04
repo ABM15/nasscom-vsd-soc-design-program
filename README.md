@@ -1080,6 +1080,12 @@ It is possible to load the routed design in Magic for inspection using the follo
 ![routing3magic](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20151739.png)
 ![routing4magic](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20151816.png)
 
+The routing has achieved 0 violations.
+
+We inspect the fast route guide present in the 'openlane/designs/picorv32a/runs/02-02_19-54/tmp/routing' folder
+
+![fastguideroute](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20154001.png)
+
 
 
 
