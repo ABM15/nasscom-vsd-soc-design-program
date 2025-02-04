@@ -1055,6 +1055,30 @@ It is possible to load the design with the PDN in Magic for inspection using the
 
 #### 2 Detailed routing using TritonRoute
 
+We run the routing using TritonRoute with its default settings (among them, the computationally simplest routing strategy)
+
+```bash
+  #Run routing
+  %run_routing
+```
+
+![routing1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20145351.png)
+![routing2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20145544.png)
+![routing3](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20145650.png)
+
+It is possible to load the routed design in Magic for inspection using the following commands from another terminal:
+
+```bash
+  # Change directory to path containing routed def
+  $ cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-02_19-54/results/routing/
+
+  # Command to load the routed def in magic tool
+  $ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def &
+```
+![routing1magic](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20151534.png)
+![routing2magic](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20151649.png)
+![routing3magic](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20151739.png)
+![routing4magic](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20151816.png)
 
 
 
