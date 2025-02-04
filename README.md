@@ -982,6 +982,78 @@ The execution of the commands and the generated timing report can be observed be
 
 ## Lab Day 5: Final Steps for RTL2GDS using tritonRoute and openSTA
 
+The objectives of the day are the following:
+
+1) Generation of the Power Distribution Network (PDN)
+2) Detailed Routing using TritonRoute
+3) Parasitic extraction using SPEF-Extractor
+4) Post-routing timing analysis with openSTA
+
+#### 1 Generation of the Power Distribution Network (PDN)
+
+The following commands lead to the state of the design until now:
+
+```bash
+# Start OpenLANE in interactive
+$./flow.tcl -interactive
+
+# Load required packages
+%package require openlane 0.9
+
+# Prepare the design
+%prep -design picorv32a -tag 02-02_19-54 -overwrite
+
+# Include newly added lef to openlane flow merged.lef
+%set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+%add_lefs -src $lefs
+
+# Set new value for SYNTH_STRATEGY
+%set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Set new value for SYNTH_SIZING
+%set ::env(SYNTH_SIZING) 1
+
+# Run synthesis
+%run_synthesis
+
+# Alternative command sequence to "run_floorplan" 
+%init_floorplan
+%place_io
+%tap_decap_or
+
+# Run placement
+%run_placement
+
+# In case of error
+%unset ::env(LIB_CTS)
+
+# Run CTS
+%run_cts
+
+# Generate power distribution network
+%gen_pdn
+```
+
+The PDN is generated and an additional check shows that the current (up to date) DEF file includes the PDN information.
+
+![pdn1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20140844.png)
+![pdn2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20140859.png)
+
+It is possible to load the design with the PDN in Magic for inspection using the following commands from another terminal:
+
+```bash
+  # Change directory to path containing generated PDN def
+  $ cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-02_19-54/tmp/floorplan/
+
+  # Command to load the PDN def in magic tool
+  $ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
+```
+
+![pdnmagic1](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20143224.png)
+![pdnmagic2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20143333.png)
+![pdnmagic3](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20143450.png)
+
+#### 2 Detailed routing using TritonRoute
 
 
 
