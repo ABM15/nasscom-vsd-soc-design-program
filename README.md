@@ -986,8 +986,8 @@ The objectives of the day are the following:
 
 1) Generation of the Power Distribution Network (PDN)
 2) Detailed Routing using TritonRoute
-3) Parasitic extraction using SPEF-Extractor
-4) Post-routing timing analysis with openSTA
+3) Parasitic extraction
+4) Post-routing timing analysis using OpenSTA
 
 #### 1 Generation of the Power Distribution Network (PDN)
 
@@ -1086,8 +1086,73 @@ We inspect the fast route guide present in the 'openlane/designs/picorv32a/runs/
 
 ![fastguideroute](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20154001.png)
 
+#### 3 Parasitic extraction
 
+The extraction of RC parasitic values has been integrated in OpenLANE flow in the 'run_routing' command. Hence it is no longer necessary to run externally the Python script SPEF-Extractor.
 
+From the information lines during the routing execution we can see:
+
+![extraction](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20164435.png)
+
+We also can see that the file 'picorv32a.spef' has been created in the 'openlane/designs/picorv32a/runs/02-02_19-54/result/routing' folder.
+
+![spefinfolder](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20165002.png)
+
+#### 4 Post-routing timing analysis using OpenSTA
+
+We perform the post-routing timing analysis using OpenSTA. The commands are the following:
+
+```bash
+  # Run OpenROAD tool
+  %openroad
+
+  # Read lef file
+  %read_lef /openLANE_flow/designs/picorv32a/runs/02-02_19-54/tmp/merged.lef
+
+  # Read def file
+  %read_def /openLANE_flow/designs/picorv32a/runs/02-02_19-54/results/routing/picorv32a.def
+
+  # Create an OpenROAD database to work with
+  %write_db pico_route.db
+
+  # Load the created database in OpenROAD
+  %read_db pico_route.db
+
+  # Read netlist post CTS
+  %read_verilog /openLANE_flow/designs/picorv32a/runs/02-02_19-54/results/synthesis/picorv32a.synthesis_preroute.v
+
+  # Read library for design
+  %read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+  # Link design and library
+  %link_design picorv32a
+
+  # Read in the custom sdc we created
+  %read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+  # Set all cloks as propagated clocks
+  %set_propagated_clock [all_clocks]
+
+  # Read SPEF
+  %read_spef /openLANE_flow/designs/picorv32a/runs/02-02_19-54/results/routing/picorv32a.spef
+
+  # Generate custom timing report
+  %report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+  # Exit to OpenLANE flow
+  %exit
+```
+
+We can see below the execution of the command and the generated timing report:
+
+![postroutesta](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20172935.png)
+![postroutesta2](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20173024.png)
+![postroutesta3](https://github.com/ABM15/nasscom-vsd-soc-design-program/blob/main/Screenshot%202025-02-04%20173042.png)
+
+# Acknowledgements  
+**Kunal Ghosh**, Co-founder, VSD Corp. Pvt. Ltd.  
+**Nickson P Jose**, Physical Design Engineer, Intel Corporation.  
+**R. Timothy Edwards**, Senior Vice President of Analog and Design, efabless Corporation. 
 
 
 
